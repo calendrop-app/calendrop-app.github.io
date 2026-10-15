@@ -1,0 +1,88 @@
+---
+/**
+ * Every published release of Calendrop, newest first, with its notes from
+ * GitHub. A patch release sits folded in the section of its X.Y release.
+ */
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { Badge } from "@astrojs/starlight/components";
+import { renderNotes } from "../../lib/releases";
+import { history } from "../../lib/history";
+
+const { groups } = history;
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Release history",
+    description: "Every release of Calendrop and what changed in it.",
+    editUrl: false,
+  }}
+  headings={groups.map((g) => ({ depth: 2, slug: g.version, text: g.version }))}
+>
+  {
+    groups.length === 0 ? (
+      <p>
+        No release of Calendrop is out yet. Watch <a href={history.releases}>its releases on GitHub</a> for the first one.
+      </p>
+    ) : (
+      <p>
+        Every release of Calendrop, newest first, with its notes as written on GitHub. A patch release, such as v0.1.1, is folded into the release it fixes, such as v0.1.0.
+      </p>
+    )
+  }
+  {
+    groups.map((g) => (
+      <section class="release" aria-labelledby={g.version}>
+        <h2 id={g.version}>
+          {g.version}
+          {g.prerelease && <Badge text="Prerelease" variant="caution" />}
+        </h2>
+        <p class="release-meta">
+          <time datetime={g.published_at}>{g.date}</time>
+          <a href={g.url}>On GitHub</a>
+        </p>
+        <Fragment set:html={renderNotes(g.body)} />
+        {g.patches.map((p) => (
+          <details>
+            <summary>
+              {p.version}
+              {p.prerelease && <Badge text="Prerelease" variant="caution" />}
+              <span class="release-meta">
+                <time datetime={p.published_at}>{p.date}</time>
+              </span>
+            </summary>
+            <p class="release-meta">
+              <a href={p.url}>On GitHub</a>
+            </p>
+            <Fragment set:html={renderNotes(p.body)} />
+          </details>
+        ))}
+      </section>
+    ))
+  }
+</StarlightPage>
+
+<style>
+  .release {
+    margin-block-start: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+  }
+  .release h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .release-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25em 1em;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+  summary .release-meta {
+    display: inline;
+    margin-inline-start: 0.6em;
+  }
+</style>

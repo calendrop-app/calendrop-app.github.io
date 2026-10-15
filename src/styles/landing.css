@@ -1,0 +1,648 @@
+/* The landing page. Colours are the brand's (calendrop-brand README): the
+   hardware ink, the midnight cloth and the Join blue. --rule, --wash and
+   --muted are tints of the ink on the paper, not new hues. */
+:root {
+  color-scheme: light;
+  --paper: #f7f8fd;
+  --ink: #1c1a3f;
+  --muted: #55537a;
+  --rule: #d5d7ea;
+  --wash: #e9ecfa;
+  --link: #3159c9;
+  --join: #4f7df3;
+  --join-press: #3a68e0;
+  --cloth-top: #2a2662;
+  --cloth-bottom: #0b0a1c;
+  --hardware: #1c1a3f;
+  --screen: #ffffff;
+  --measure: 36rem;
+  --page: 72rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0e0d24;
+    --ink: #e9ecfa;
+    --muted: #a9acd0;
+    --rule: #34336a;
+    --wash: #18173a;
+    --link: #8aa6f8;
+    --cloth-top: #3a3585;
+    --cloth-bottom: #16143a;
+    --hardware: #e9ecfa;
+    --screen: #22214a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0e0d24;
+  --ink: #e9ecfa;
+  --muted: #a9acd0;
+  --rule: #34336a;
+  --wash: #18173a;
+  --link: #8aa6f8;
+  --cloth-top: #3a3585;
+  --cloth-bottom: #16143a;
+  --hardware: #e9ecfa;
+  --screen: #22214a;
+}
+
+.on-dark {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .on-light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .on-dark {
+    display: revert;
+  }
+}
+:root[data-theme="dark"] .on-light {
+  display: none;
+}
+:root[data-theme="dark"] .on-dark {
+  display: revert;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--calendrop-font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+}
+a:focus-visible,
+.button:focus-visible {
+  outline: 3px solid var(--join);
+  outline-offset: 3px;
+  border-radius: 0.4rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  text-wrap: balance;
+  font-family: var(--calendrop-font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+code {
+  font-family: var(--calendrop-font-mono);
+  font-size: 0.88em;
+}
+
+.skip {
+  position: absolute;
+  left: -100vw;
+}
+.skip:focus {
+  left: var(--gutter);
+  top: 0.75rem;
+  z-index: 1;
+  padding: 0.25rem 0.75rem;
+  background: var(--paper);
+}
+
+.site-header,
+main > section,
+.site-footer {
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.25rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--calendrop-font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand img {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem 1.5rem;
+  font-size: 0.95rem;
+}
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-nav a:hover {
+  color: var(--link);
+}
+
+/* Hero: the claim on the left, the cut-in it describes on the right. */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding-block: clamp(2rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+}
+.hero h1 {
+  font-size: clamp(2.4rem, 5.2vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 500;
+}
+.lede {
+  max-width: 30rem;
+  margin: 1.5rem 0 0;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border: 1.5px solid var(--rule);
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+  background: transparent;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.button:hover {
+  border-color: var(--ink);
+}
+.button.is-primary {
+  border-color: var(--join);
+  color: #ffffff;
+  background: var(--join);
+}
+.button.is-primary:hover {
+  border-color: var(--join-press);
+  background: var(--join-press);
+}
+.fine {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* A desk of two displays, both covered by the cut-in. Sizes are in em of the figure so the drawing scales as one piece. */
+.desk {
+  --cloth: linear-gradient(180deg, var(--cloth-top), var(--cloth-bottom));
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4%;
+  margin: 0;
+  font-size: clamp(0.62rem, 1.35vw, 0.95rem);
+}
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.display.is-main {
+  width: 62%;
+}
+.display.is-side {
+  width: 34%;
+}
+.bezel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 0.45em;
+  border-radius: 0.9em;
+  background: var(--hardware);
+}
+.screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.45em;
+  background: var(--screen);
+}
+/* What the cut-in covers: a hint of windows, so it reads as a working screen. */
+.screen::before {
+  content: "";
+  position: absolute;
+  inset: 12% 10% 20% 8%;
+  border-radius: 0.4em;
+  background:
+    linear-gradient(var(--wash), var(--wash)) 0 0 / 100% 14% no-repeat,
+    linear-gradient(var(--rule), var(--rule)) 8% 32% / 60% 6% no-repeat,
+    linear-gradient(var(--rule), var(--rule)) 8% 48% / 45% 6% no-repeat,
+    linear-gradient(var(--rule), var(--rule)) 8% 64% / 52% 6% no-repeat;
+  outline: 1px solid var(--rule);
+}
+.stand {
+  width: 18%;
+  height: 1.6em;
+  background: var(--hardware);
+  clip-path: polygon(30% 0, 70% 0, 85% 100%, 15% 100%);
+}
+.foot {
+  width: 38%;
+  height: 0.35em;
+  border-radius: 0.2em;
+  background: var(--hardware);
+}
+/* The cut-in as the app draws it with its Midnight preset: the same layout,
+   sizes and colours, scaled to the drawn screen. One --u is one point on a
+   screen as wide as the display's own resolution. */
+.screen {
+  container-type: size;
+}
+.display.is-main .screen {
+  --u: calc(100cqw / 1440);
+}
+.display.is-side .screen {
+  --u: calc(100cqw / 1920);
+}
+.cutin {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(64 * var(--u));
+  color: #ffffff;
+  font-family: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+  text-align: center;
+  background: linear-gradient(180deg, rgb(26 23 56 / 0.96), rgb(5 5 9 / 0.96));
+  animation: drop 600ms cubic-bezier(0.34, 1.32, 0.64, 1) 500ms both;
+}
+.display.is-side .cutin {
+  animation-delay: 500ms;
+}
+/* As in the app, the cut-in runs on above the screen, so the bounce of its
+   drop never uncovers the top edge. */
+.cutin::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 100%;
+  height: 50%;
+  background: rgb(26 23 56 / 0.96);
+}
+@keyframes drop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.cutin .icon {
+  width: 1.2em;
+  height: 0.85em;
+  fill: currentColor;
+  vertical-align: -0.05em;
+}
+.cutin-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(48 * var(--u));
+  max-width: calc(900 * var(--u));
+}
+.countdown {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--u));
+  line-height: 1.15;
+}
+.countdown .lead {
+  font-size: calc(28 * var(--u));
+  font-weight: 500;
+  opacity: 0.7;
+}
+.countdown .clock {
+  font-size: calc(120 * var(--u));
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.meeting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(14 * var(--u));
+}
+.meeting .title {
+  font-size: calc(48 * var(--u));
+  font-weight: 600;
+  line-height: 1.15;
+}
+.meeting .facts {
+  display: flex;
+  align-items: center;
+  gap: calc(14 * var(--u));
+  font-size: calc(18 * var(--u));
+}
+.meeting .time {
+  opacity: 0.6;
+}
+.meeting .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+  color: rgb(255 255 255 / 0.6);
+}
+.meeting .dot {
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  border-radius: 50%;
+  background: #4f7df3;
+}
+.meeting .people,
+.meeting .notes {
+  font-size: calc(17 * var(--u));
+  line-height: 1.35;
+}
+.meeting .people {
+  opacity: 0.75;
+}
+.meeting .notes {
+  margin-top: calc(-8 * var(--u));
+  opacity: 0.6;
+}
+.meeting .join {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: calc(8 * var(--u));
+  padding: calc(20 * var(--u)) calc(56 * var(--u));
+  border-radius: 999px;
+  font-size: calc(26 * var(--u));
+  font-weight: 700;
+  background: #4f7df3;
+}
+.dismiss {
+  position: absolute;
+  bottom: calc(28 * var(--u));
+  left: calc(28 * var(--u));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(6 * var(--u));
+  font-size: calc(10 * var(--u));
+  line-height: 1.2;
+  color: rgb(255 255 255 / 0.4);
+}
+.dismiss .ring {
+  display: grid;
+  place-items: center;
+  width: calc(24 * var(--u));
+  height: calc(24 * var(--u));
+  border: calc(2 * var(--u)) solid rgb(255 255 255 / 0.25);
+  border-radius: 50%;
+}
+.dismiss .ring .icon {
+  width: calc(9 * var(--u));
+  height: calc(9 * var(--u));
+  fill: none;
+  stroke: rgb(255 255 255 / 0.6);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.desk figcaption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+main > section + section {
+  padding-top: clamp(3.5rem, 8vw, 6.5rem);
+}
+main > section:last-child {
+  padding-bottom: clamp(3.5rem, 8vw, 6.5rem);
+}
+main h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+}
+.section-lede {
+  max-width: var(--measure);
+  margin: 1rem 0 0;
+  color: var(--muted);
+}
+
+/* Why: a banner beside the cut-in, set as a contrast of two short columns. */
+.why {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.why-body p {
+  max-width: var(--measure);
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+.why-body p:first-child {
+  margin-top: 0.4rem;
+}
+
+.feature-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  border-top: 1.5px solid var(--rule);
+}
+.feature-list li {
+  padding: 1.5rem 1.5rem 1.75rem 0;
+  border-bottom: 1.5px solid var(--rule);
+}
+.feature-list h3 {
+  font-size: 1.35rem;
+}
+.feature-list p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+/* Install sits on the cloth itself: the one band of the page in the brand's
+   midnight, whatever the theme. */
+.install {
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3.5rem);
+  color: #ffffff;
+  background: linear-gradient(180deg, var(--cloth-top), var(--cloth-bottom));
+  border-radius: 1.5rem;
+}
+.install h2 {
+  color: #ffffff;
+}
+.install .section-lede {
+  color: rgb(255 255 255 / 0.78);
+}
+.install a {
+  color: #c9d6fd;
+}
+.install a.button.is-primary {
+  color: #ffffff;
+}
+.install .button:not(.is-primary) {
+  border-color: rgb(255 255 255 / 0.35);
+  color: #ffffff;
+}
+.install .button:not(.is-primary):hover {
+  border-color: #ffffff;
+}
+.install-ways {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.install-way {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 0.05);
+}
+.install-way h3 {
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+.install-way p {
+  margin: 0.5rem 0 0;
+  color: rgb(255 255 255 / 0.78);
+  font-size: 0.95rem;
+}
+.install-way .actions {
+  margin-top: 1rem;
+}
+.install-way code {
+  display: block;
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  background: rgb(0 0 0 / 0.35);
+  overflow-wrap: anywhere;
+}
+
+.privacy-list {
+  list-style: none;
+  max-width: 48rem;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+.privacy-list li {
+  padding-block: 0.9rem;
+  border-top: 1.5px solid var(--rule);
+}
+.privacy-list li:last-child {
+  border-bottom: 1.5px solid var(--rule);
+}
+.privacy-list strong {
+  font-weight: 600;
+}
+.more {
+  margin: 1.5rem 0 0;
+}
+
+.site-footer {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 2.5rem 3rem;
+  border-top: 1.5px solid var(--rule);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.footer-brand p {
+  margin: 0;
+}
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+.footer-nav a {
+  color: var(--ink);
+}
+.footer-legal {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 52rem) {
+  .hero,
+  .why {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 30rem) {
+  .site-nav a[href^="https://github.com"] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cutin {
+    animation: none;
+  }
+  * {
+    transition: none !important;
+  }
+}

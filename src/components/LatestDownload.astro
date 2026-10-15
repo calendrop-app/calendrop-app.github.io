@@ -1,0 +1,39 @@
+---
+// The download of the newest release for the install page, or a note that no
+// release is out yet.
+import { history } from "../lib/history";
+
+const { download, releases } = history;
+---
+
+{
+  download ? (
+    <p>
+      <a class="sl-link-button" href={download.url}>
+        Download {download.name}
+      </a>
+      <br />
+      Calendrop {download.version}. Earlier versions are in the <a href="/docs/releases/">release history</a>.
+    </p>
+  ) : (
+    <p>
+      No release is out yet. Watch <a href={releases}>Calendrop's releases on GitHub</a> for the first one.
+    </p>
+  )
+}
+
+<style>
+  .sl-link-button {
+    display: inline-block;
+    margin-block-end: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #ffffff;
+    background: #4f7df3;
+  }
+  .sl-link-button:hover {
+    background: #3a68e0;
+  }
+</style>

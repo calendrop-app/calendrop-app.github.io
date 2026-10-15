@@ -1,0 +1,62 @@
+---
+title: Install
+description: Download Calendrop or install it with Homebrew, and allow its first launch.
+---
+
+import LatestDownload from "../../../components/LatestDownload.astro";
+
+Calendrop runs on macOS 14 or later on a Mac with Apple silicon.
+
+## Download
+
+<LatestDownload />
+
+1. Unzip the download.
+2. Move **Calendrop.app** into the **Applications** folder.
+3. Open it. Calendrop lives in the menu bar; it has no Dock icon.
+
+## Allow the first launch
+
+Calendrop is signed by its developer but not notarized by Apple, so the first
+time you open it macOS refuses with a message that it cannot check the app for
+malicious software. To allow it:
+
+1. Close the message.
+2. Open **System Settings › Privacy & Security** and scroll down to
+   **Security**. There is a line saying Calendrop was blocked.
+3. Click **Open Anyway** and confirm with your password or Touch ID.
+4. Click **Open** in the message that follows.
+
+This is needed once per installed copy. After an update, macOS may ask once
+more.
+
+## Homebrew
+
+```sh
+brew install --cask calendrop-app/tap/calendrop
+```
+
+Update it with `brew upgrade --cask calendrop`. If macOS refuses to open it,
+allow it as above.
+
+## Updating
+
+Quit Calendrop from its menu, replace **Calendrop.app** in **Applications** with
+the new one, and open it again. Your accounts and settings stay. The first time
+the new version reads your sign-in, macOS asks for Keychain access again; see
+[Keychain asks again after each update](/docs/troubleshooting/#keychain-asks-again-after-each-update).
+
+## Uninstall
+
+1. Open **Settings › Accounts** and remove each account. This deletes its
+   sign-in token from this Mac's Keychain. Removing an account removes it from
+   every Mac that shares your settings; to leave the others alone, delete the
+   tokens instead: open **Keychain Access** and delete the items named
+   **Calendrop (your address)**.
+2. Quit Calendrop and move **Calendrop.app** to the Trash.
+3. To delete your settings too, delete the `Calendrop` folder in iCloud Drive,
+   or `~/Library/Application Support/Calendrop/` if you do not use iCloud
+   Drive. Its preferences are in
+   `~/Library/Preferences/com.lambdalisue.calendrop.plist`.
+4. To withdraw Calendrop's access on Google's side as well, remove it at
+   [Google Account › Third-party apps & services](https://myaccount.google.com/permissions).

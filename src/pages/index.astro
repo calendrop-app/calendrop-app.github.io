@@ -1,0 +1,279 @@
+---
+import "../styles/fonts.css";
+import "../styles/landing.css";
+import { history } from "../lib/history";
+
+const { download } = history;
+const repository = "https://github.com/calendrop-app/Calendrop";
+const title = "Calendrop | The meeting reminder you can't ignore";
+const description =
+  "Calendrop is a macOS menu bar app that shows your next Google Calendar meeting and, shortly before it starts, covers every screen until you join it or deliberately dismiss it.";
+const icon = new URL("/logo/calendrop-icon-512.png", Astro.site).href;
+
+const features = [
+  {
+    title: "Cuts in on every screen",
+    body: "Before a meeting, Calendrop covers every display — above full-screen apps, the Dock and the menu bar, on every Space — until you deal with it.",
+  },
+  {
+    title: "Joining is the big button",
+    body: "The largest thing on the cut-in opens the meeting's Meet, Zoom, Teams or Webex link. With one meeting, Return does it too. Dismissing without joining takes a press and hold.",
+  },
+  {
+    title: "Every account, one timeline",
+    body: "Add your work, client and personal Google accounts. Their meetings merge into one list, each with its own label and colour, and an event shared between them appears once.",
+  },
+  {
+    title: "Follows your desk",
+    body: "Dock, undock, plug in a projector or change resolution: the cut-in is rebuilt to cover exactly the screens you have now.",
+  },
+  {
+    title: "Read-only access",
+    body: "Calendrop asks Google only to see your calendar list and your events. It never creates, changes or answers anything.",
+  },
+  {
+    title: "Credentials stay on the Mac",
+    body: "Settings can follow you between Macs through iCloud Drive. Sign-in tokens never leave the Keychain of the Mac that signed in.",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={Astro.site} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.site} />
+    <meta property="og:image" content={icon} />
+    <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      // Follow the theme chosen in the docs (Starlight keeps it here), else the OS.
+      try {
+        const theme = localStorage.getItem("starlight-theme");
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <img class="on-light" src="/logo/calendrop-icon.svg" alt="" width="36" height="36" />
+        <img class="on-dark" src="/logo/calendrop-icon-dark.svg" alt="" width="36" height="36" />
+        Calendrop
+      </a>
+      <nav class="site-nav" aria-label="Site">
+        <a href="/docs/">Docs</a>
+        <a href="#install">Install</a>
+        <a href={repository}>GitHub</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">The meeting reminder you <em>can't</em> ignore.</h1>
+          <p class="lede">
+            Calendrop sits in your Mac's menu bar with your next Google Calendar meeting. Shortly before it starts, it
+            pulls a blind down over every screen, and leaves it there until you join the meeting or deliberately dismiss
+            it.
+          </p>
+          <div class="actions">
+            <a class="button is-primary" href="#install">Get Calendrop</a>
+            <a class="button" href="/docs/">Read the docs</a>
+          </div>
+          <p class="fine">Free and open source · macOS 14 or later · Apple silicon</p>
+        </div>
+        <figure class="desk">
+          {
+            ["is-main", "is-side"].map((kind) => (
+              <div class={`display ${kind}`} aria-hidden="true">
+                <div class="bezel">
+                  <div class="screen">
+                    <div class="cutin">
+                      <div class="cutin-body">
+                        <div class="countdown">
+                          <span class="lead">Meeting starts in</span>
+                          <span class="clock">1:58</span>
+                        </div>
+                        <div class="meeting">
+                          <span class="title">Weekly sync</span>
+                          <span class="facts">
+                            <span class="time">10:30 – 11:00</span>
+                            <span class="badge">
+                              <i class="dot" />
+                              Work · Work
+                            </span>
+                          </span>
+                          <span class="people">
+                            <svg viewBox="0 0 20 14" class="icon">
+                              <circle cx="6.5" cy="3.5" r="3" />
+                              <path d="M0.5 13.5c0-3.3 2.7-5 6-5s6 1.7 6 5z" />
+                              <circle cx="14" cy="4" r="2.5" />
+                              <path d="M13.6 8.6c3.2-.2 5.9 1.3 5.9 4.9h-5.6c0-2-.1-3.5-.3-4.9z" />
+                            </svg>
+                            With Mika Tanaka, Ken Sato, Aki Mori and 2 others
+                          </span>
+                          <span class="notes">
+                            Status of each workstream, then risks and asks.
+                            <br />
+                            Notes: https://example.com/sample/notes
+                          </span>
+                          <span class="join">
+                            <svg viewBox="0 0 22 14" class="icon">
+                              <rect x="0" y="0" width="15" height="14" rx="3" />
+                              <path d="M16 5l6-4v12l-6-4z" />
+                            </svg>
+                            Join
+                          </span>
+                        </div>
+                      </div>
+                      <div class="dismiss">
+                        <span class="ring">
+                          <svg viewBox="0 0 10 10" class="icon">
+                            <path d="M2 2l6 6M8 2l-6 6" />
+                          </svg>
+                        </span>
+                        <span>Hold to dismiss</span>
+                        <span>or press ⌃⌥⌘⎋</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="stand" />
+                <div class="foot" />
+              </div>
+            ))
+          }
+          <figcaption>
+            Two displays, both covered by Calendrop's cut-in for the meeting "Weekly sync", with a large Join button.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="why" aria-labelledby="why-title">
+        <h2 id="why-title">A banner is too easy to wave away.</h2>
+        <div class="why-body">
+          <p>
+            Deep in focused work, a notification slides in at the corner of the screen and slides out again, and you
+            look up ten minutes into the meeting. A reminder that can be dismissed by reflex is not a reminder.
+          </p>
+          <p>
+            Calendrop interrupts for real. The cut-in covers everything, on every display, and Escape does nothing. The
+            easy way out is the one you want — the Join button — and ending it without joining takes intent.
+          </p>
+        </div>
+      </section>
+
+      <section class="features" aria-labelledby="features-title">
+        <h2 id="features-title">Made for a day split across accounts and screens</h2>
+        <ul class="feature-list">
+          {
+            features.map((f) => (
+              <li>
+                <h3>{f.title}</h3>
+                <p>{f.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="more"><a href="/docs/cut-in/">How the cut-in behaves</a></p>
+      </section>
+
+      <section id="install" aria-labelledby="install-title">
+        <div class="install">
+          <h2 id="install-title">Install</h2>
+          <p class="section-lede">
+            Calendrop needs macOS 14 or later on Apple silicon. It is signed but not notarized, so the first launch has to
+            be allowed once in System Settings › Privacy &amp; Security — <a href="/docs/install/#allow-the-first-launch"
+              >here is how</a
+            >.
+          </p>
+          <div class="install-ways">
+            <div class="install-way">
+              <h3>Download</h3>
+              {
+                download ? (
+                  <>
+                    <p>
+                      Calendrop {download.version}. Unzip it and move Calendrop.app into Applications.
+                    </p>
+                    <div class="actions">
+                      <a class="button is-primary" href={download.url}>
+                        Download for Mac
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <p>
+                    No release is out yet. Watch <a href={history.releases}>Calendrop's releases on GitHub</a> for the
+                    first one.
+                  </p>
+                )
+              }
+            </div>
+            <div class="install-way">
+              <h3>Homebrew</h3>
+              <p>Install and update it from the Calendrop tap.</p>
+              <code>brew install --cask calendrop-app/tap/calendrop</code>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="button" href="/docs/install/">Install guide</a>
+            <a class="button" href="/docs/getting-started/">Getting started</a>
+            <a class="button" href="/docs/releases/">Release history</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="privacy" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">Your calendar stays between your Mac and Google</h2>
+        <ul class="privacy-list">
+          <li>
+            <strong>Read-only.</strong> Calendrop asks to see your calendar list and events, nothing else.
+          </li>
+          <li>
+            <strong>No servers.</strong> Your Mac talks to Google directly. There is no Calendrop server, account or
+            backend.
+          </li>
+          <li>
+            <strong>No tracking.</strong> No analytics, telemetry or ads, and nothing is sold or shared.
+          </li>
+          <li>
+            <strong>Tokens stay put.</strong> Sign-in tokens live only in the Keychain of the Mac that signed in.
+          </li>
+        </ul>
+        <p class="more"><a href="/privacy/">Read the Privacy Policy</a></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <img class="on-light" src="/logo/calendrop-icon.svg" alt="" width="32" height="32" />
+        <img class="on-dark" src="/logo/calendrop-icon-dark.svg" alt="" width="32" height="32" />
+        <p>Calendrop drops a blind over every screen before your next meeting.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/docs/">Docs</a>
+        <a href="/docs/releases/">Release history</a>
+        <a href={repository}>Source code</a>
+        <a href={`${repository}/issues`}>Report a problem</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/terms/">Terms of Service</a>
+      </nav>
+      <p class="footer-legal">
+        Calendrop is MIT licensed. The Calendrop name and logo may be used under the <a
+          href="https://github.com/calendrop-app/calendrop-brand/blob/main/TRADEMARKS.md">trademark policy</a
+        >. Google Calendar is a trademark of Google LLC.
+      </p>
+    </footer>
+  </body>
+</html>

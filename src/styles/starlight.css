@@ -1,0 +1,75 @@
+/* Starlight's palette, rebuilt from the brand colours (calendrop-brand README):
+   hardware #1C1A3F / #E9ECFA, cloth #2A2662 → #0B0A1C / #3A3585 → #16143A,
+   Join #4F7DF3. Starlight names its scale from the dark theme, so in light mode
+   --sl-color-white is the ink and --sl-color-black is the paper. */
+:root {
+  --sl-font: var(--calendrop-font-body);
+  --sl-font-mono: var(--calendrop-font-mono);
+
+  --sl-color-accent-low: #1d2550;
+  --sl-color-accent: #7c9cf6;
+  --sl-color-accent-high: #d3ddfd;
+  --sl-color-white: #e9ecfa;
+  --sl-color-gray-1: #cfd2ec;
+  --sl-color-gray-2: #a9acd0;
+  --sl-color-gray-3: #8083ac;
+  --sl-color-gray-4: #555881;
+  --sl-color-gray-5: #3a3a66;
+  --sl-color-gray-6: #22214a;
+  --sl-color-black: #12112b;
+}
+
+:root[data-theme="light"] {
+  --sl-color-accent-low: #dfe7fd;
+  --sl-color-accent: #3159c9;
+  --sl-color-accent-high: #1f3478;
+  --sl-color-white: #1c1a3f;
+  --sl-color-gray-1: #2a2862;
+  --sl-color-gray-2: #45437a;
+  --sl-color-gray-3: #5d5b8a;
+  --sl-color-gray-4: #8b8aae;
+  --sl-color-gray-5: #c9cae0;
+  --sl-color-gray-6: #e9ecfa;
+  --sl-color-gray-7: #f4f5fc;
+  --sl-color-black: #ffffff;
+}
+
+.sl-markdown-content {
+  line-height: 1.75;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4),
+h1#_top,
+.site-title {
+  font-family: var(--calendrop-font-display);
+  font-weight: 600;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.site-title {
+  font-size: var(--sl-text-xl);
+}
+
+.sl-markdown-content > :is(p, ul, ol) {
+  max-width: 40rem;
+}
+
+.sl-markdown-content kbd {
+  padding: 0.05em 0.45em;
+  border: 1.5px solid var(--sl-color-gray-4);
+  border-bottom-width: 3px;
+  border-radius: 0.4em;
+  font-family: var(--calendrop-font-body);
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--sl-color-white);
+  background: var(--sl-color-black);
+}
+
+/* The provisional notice at the head of the legal pages. */
+.legal-dates {
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-3);
+}
